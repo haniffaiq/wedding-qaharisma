@@ -1,0 +1,243 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f8f5f0;
+  --ink: #1f1b16;
+  --muted: #6f6a63;
+  --accent: #a88b5c;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: transparent;
+  color: var(--ink);
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+html {
+  background-color: var(--bg);
+}
+
+html, body {
+  max-width: 100vw;
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 500;
+  }
+  /* Sections sit transparently over the fixed video — only the text color
+     flips to a light cream/white so it stays readable.                    */
+  .section-glass,
+  .section-glass-soft {
+    color: #f5efe6;
+  }
+  .glass-text   { color: #f5efe6; }
+  .glass-muted  { color: rgb(245 239 230 / 0.72); }
+  .glass-strong { color: #ffffff; }
+  .glass-line   { background-color: rgb(245 239 230 / 0.35); }
+  .glass-divider { border-color: rgb(245 239 230 / 0.2); }
+  .glass-card {
+    background-color: rgb(20 17 14 / 0.45);
+    border: 1px solid rgb(245 239 230 / 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #f5efe6;
+  }
+  .text-shadow-soft {
+    text-shadow: 0 2px 12px rgb(0 0 0 / 0.5);
+  }
+}
+
+/* ── color overrides inside transparent glass sections ──────────
+   Sections do not get a background — only the text colors flip
+   so content stays readable over the fixed dark video bg.        */
+.section-glass,
+.section-glass-soft {
+  color: #f5efe6;
+}
+.section-glass .text-ink,
+.section-glass-soft .text-ink {
+  color: #ffffff;
+}
+.section-glass .text-muted,
+.section-glass-soft .text-muted {
+  color: rgb(245 239 230 / 0.72);
+}
+.section-glass .text-ink\/85,
+.section-glass-soft .text-ink\/85 {
+  color: rgb(245 239 230 / 0.88);
+}
+.section-glass .text-ink\/80,
+.section-glass-soft .text-ink\/80 {
+  color: rgb(245 239 230 / 0.85);
+}
+.section-glass .text-ink\/70,
+.section-glass-soft .text-ink\/70 {
+  color: rgb(245 239 230 / 0.75);
+}
+/* Card surfaces flip to dark translucent panels with light borders */
+.section-glass .bg-white\/60,
+.section-glass-soft .bg-white\/60,
+.section-glass .bg-white\/65,
+.section-glass-soft .bg-white\/65,
+.section-glass .bg-white\/55,
+.section-glass-soft .bg-white\/55,
+.section-glass .bg-white\/50,
+.section-glass-soft .bg-white\/50 {
+  background-color: rgb(20 17 14 / 0.45) !important;
+}
+.section-glass .border-ink\/10,
+.section-glass-soft .border-ink\/10,
+.section-glass .border-ink\/15,
+.section-glass-soft .border-ink\/15 {
+  border-color: rgb(245 239 230 / 0.18) !important;
+}
+/* form fields inside glass */
+.section-glass input,
+.section-glass-soft input,
+.section-glass textarea,
+.section-glass-soft textarea,
+.section-glass select,
+.section-glass-soft select {
+  color: #ffffff;
+}
+.section-glass input::placeholder,
+.section-glass-soft input::placeholder,
+.section-glass textarea::placeholder,
+.section-glass-soft textarea::placeholder {
+  color: rgb(245 239 230 / 0.45);
+}
+.section-glass option,
+.section-glass-soft option {
+  color: #1f1b16;
+}
+/* underline borders on inputs */
+.section-glass .border-b.border-ink\/15,
+.section-glass-soft .border-b.border-ink\/15 {
+  border-color: rgb(245 239 230 / 0.3) !important;
+}
+/* secondary panel tints used inside dim sections */
+.section-glass .bg-ink\/\[0\.04\],
+.section-glass-soft .bg-ink\/\[0\.04\] {
+  background-color: rgb(245 239 230 / 0.06) !important;
+}
+@layer utilities {
+  .text-accent {
+    color: var(--accent);
+  }
+  .bg-accent {
+    background-color: var(--accent);
+  }
+  .border-accent {
+    border-color: var(--accent);
+  }
+  .ring-accent {
+    --tw-ring-color: var(--accent);
+  }
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ── animation primitives ───────────────────────────────────── */
+@keyframes ken-burns {
+  0% { transform: scale(1.05) translate(0, 0); }
+  50% { transform: scale(1.18) translate(-1.5%, -1.5%); }
+  100% { transform: scale(1.05) translate(0, 0); }
+}
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translate3d(0, 24px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+@keyframes shimmer {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 1; }
+}
+@keyframes envelope-open-top {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-105%); }
+}
+@keyframes envelope-open-bottom {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(105%); }
+}
+@keyframes seal-break {
+  0%   { transform: scale(1) rotate(0deg); opacity: 1; }
+  60%  { transform: scale(1.4) rotate(15deg); opacity: 1; }
+  100% { transform: scale(0) rotate(45deg); opacity: 0; }
+}
+
+@layer utilities {
+  .animate-ken-burns {
+    animation: ken-burns 16s ease-in-out infinite;
+    will-change: transform;
+  }
+  .animate-fade-in-up {
+    animation: fade-in-up 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+  }
+  .animate-float-soft {
+    animation: float-soft 4s ease-in-out infinite;
+  }
+  .animate-shimmer {
+    animation: shimmer 2.5s ease-in-out infinite;
+  }
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+    transition: opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  .reveal-zoom {
+    opacity: 0;
+    transform: scale(1.04);
+    transition: opacity 1.4s ease-out, transform 1.6s ease-out;
+  }
+  .reveal-zoom.is-visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ken-burns,
+  .animate-fade-in-up,
+  .animate-fade-in,
+  .animate-float-soft,
+  .animate-shimmer {
+    animation: none !important;
+  }
+  .reveal,
+  .reveal-zoom {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

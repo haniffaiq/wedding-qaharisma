@@ -2,7 +2,7 @@ import { Globe, Instagram, MessageCircle } from 'lucide-react';
 import { wedding } from '../data/content';
 
 export default function Footer() {
-  const e = wedding.envelope;
+  const e = wedding.vendor;
   return (
     <footer className="section-glass-soft border-t glass-divider px-6 py-12">
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 text-center md:flex-row md:justify-between md:text-left">

@@ -5,12 +5,14 @@ import Reveal from '../components/Reveal';
 
 type Ev = {
   label: string;
+  host: string;
   day: string;
   date: string;
-  time: string;
   venue: string;
   address: string;
   mapsUrl: string;
+  qr?: string;
+  schedule: readonly { time: string; name: string }[];
 };
 
 function EventCard({ ev, delay = 0 }: { ev: Ev; delay?: number }) {
@@ -20,22 +22,38 @@ function EventCard({ ev, delay = 0 }: { ev: Ev; delay?: number }) {
       className="flex flex-col items-center rounded-sm border border-ink/10 bg-white/60 px-6 py-10 text-center backdrop-blur md:px-8 md:py-12"
     >
       <span className="text-[11px] uppercase tracking-[0.4em] text-accent">{ev.label}</span>
+      <span className="mt-2 text-[10px] uppercase tracking-[0.3em] text-muted">{ev.host}</span>
       <h3 className="mt-4 font-display text-2xl md:text-4xl">{ev.venue}</h3>
+      <p className="mt-2 text-sm text-ink/85">
+        {ev.day}, {ev.date}
+      </p>
 
       <div className="my-7 h-px w-12 bg-accent md:my-8" />
 
-      <div className="flex flex-col items-center gap-3.5 text-sm text-ink/85 md:gap-4">
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          <Clock size={16} className="text-accent" />
-          <span>
-            {ev.day}, {ev.date} • {ev.time}
-          </span>
-        </div>
-        <div className="flex items-start gap-2 text-muted">
-          <MapPin size={16} className="mt-0.5 shrink-0 text-accent" />
-          <span className="text-left">{ev.address}</span>
-        </div>
+      <ul className="flex w-full max-w-xs flex-col gap-3 text-sm text-ink/85">
+        {ev.schedule.map((s) => (
+          <li key={s.name} className="flex items-center justify-between gap-3">
+            <span className="inline-flex items-center gap-2">
+              <Clock size={15} className="shrink-0 text-accent" />
+              {s.name}
+            </span>
+            <span className="whitespace-nowrap text-muted">{s.time}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-7 flex items-start gap-2 text-sm text-muted md:mt-8">
+        <MapPin size={16} className="mt-0.5 shrink-0 text-accent" />
+        <span className="text-left">{ev.address}</span>
       </div>
+
+      {ev.qr && (
+        <img
+          src={ev.qr}
+          alt={`QR code — ${ev.venue}`}
+          className="mt-7 h-32 w-32 rounded-sm border border-ink/10 bg-white p-1.5"
+        />
+      )}
 
       <a
         href={ev.mapsUrl}
@@ -60,9 +78,9 @@ export default function EventDetails() {
             subtitle="We invite you to share in the joy of our union."
           />
         </Reveal>
-        <div className="mt-14 grid gap-6 md:mt-16 md:grid-cols-2 md:gap-8">
-          <EventCard ev={wedding.events.reception} />
-          <EventCard ev={wedding.events.matrimony} delay={150} />
+        <div className="mt-14 grid items-start gap-6 md:mt-16 md:grid-cols-2 md:gap-8">
+          <EventCard ev={wedding.events.primary} />
+          <EventCard ev={wedding.events.secondary} delay={150} />
         </div>
       </div>
     </section>

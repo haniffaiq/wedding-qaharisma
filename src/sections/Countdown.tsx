@@ -8,14 +8,15 @@ function pad(n: number) {
 }
 
 function gcalUrl() {
-  const start = '20260620T120000Z';
-  const end = '20260620T140000Z';
+  // 27 Jun 2026, 09:00–10:00 WIB (UTC+7) → 02:00–03:00 UTC
+  const start = '20260627T020000Z';
+  const end = '20260627T030000Z';
   const params = new URLSearchParams({
     action: 'TEMPLATE',
     text: 'The Wedding of Qahhar & Risma',
     dates: `${start}/${end}`,
-    details: 'Holy Matrimony — Pullman Jakarta Indonesia Thamrin',
-    location: 'Pullman Jakarta Indonesia Thamrin',
+    details: 'Akad Nikah — Bale Sawala Gunungguruh, Sukabumi',
+    location: 'Bale Sawala Gunungguruh, Kabupaten Sukabumi, Jawa Barat',
   });
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 }

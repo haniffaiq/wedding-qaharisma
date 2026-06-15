@@ -1,0 +1,17 @@
+[Unit]
+Description=Wedding Invite Telegram Bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Adjust User and WorkingDirectory to your deploy path:
+User=www-data
+WorkingDirectory=/var/www/invite/frontend/bot
+EnvironmentFile=/var/www/invite/frontend/bot/.env
+ExecStart=/usr/bin/node server.mjs
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

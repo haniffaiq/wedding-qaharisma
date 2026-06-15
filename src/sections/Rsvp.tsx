@@ -5,43 +5,50 @@ import SectionHeading from '../components/SectionHeading';
 import { useToast } from '../components/Toast';
 import Reveal from '../components/Reveal';
 import { guestFromPath } from '../lib/guest';
-
-type Wish = {
-  name: string;
-  attending: 'yes' | 'no';
-  guests: number;
-  message: string;
-  at: number;
-};
+import { sendRsvp, RsvpNotConfiguredError } from '../lib/telegram';
 
 export default function Rsvp() {
   const { show } = useToast();
-  const initialGuest = guestFromPath();
-  const [name, setName] = useState(initialGuest === 'Guest' ? '' : initialGuest);
+  const guestSlug = guestFromPath();
+  const [name, setName] = useState(guestSlug === 'Guest' ? '' : guestSlug);
   const [attending, setAttending] = useState<'yes' | 'no'>('yes');
+  const [session, setSession] = useState<string>(wedding.rsvp.sessions[0].id);
   const [guests, setGuests] = useState(1);
   const [message, setMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  const [wishes, setWishes] = useState<Wish[]>([]);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !message.trim()) {
-      show('Please fill in your name and wishes');
+    if (!name.trim()) {
+      show('Mohon isi nama Anda');
       return;
     }
     setSubmitting(true);
-    await new Promise((r) => setTimeout(r, 700));
-    setWishes((w) => [
-      { name: name.trim(), attending, guests, message: message.trim(), at: Date.now() },
-      ...w,
-    ]);
-    setName('');
-    setMessage('');
-    setGuests(1);
-    setAttending('yes');
-    setSubmitting(false);
-    show('Thank you, your wishes have been sent');
+    try {
+      const picked = wedding.rsvp.sessions.find((s) => s.id === session);
+      await sendRsvp({
+        guest: guestSlug,
+        name: name.trim(),
+        attending,
+        session: attending === 'yes' && picked ? `${picked.label} (${picked.time})` : '',
+        guests,
+        message,
+      });
+      setName('');
+      setMessage('');
+      setGuests(1);
+      setSession(wedding.rsvp.sessions[0].id);
+      setAttending('yes');
+      show('Terima kasih, RSVP terkirim');
+    } catch (err) {
+      if (err instanceof RsvpNotConfiguredError) {
+        show('RSVP belum dikonfigurasi');
+      } else {
+        show('Gagal mengirim, coba lagi');
+      }
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -78,7 +85,11 @@ export default function Rsvp() {
                   <button
                     key={opt}
                     type="button"
-                    onClick={() => setAttending(opt)}
+                    aria-pressed={attending === opt}
+                    onClick={() => {
+                      setAttending(opt);
+                      if (opt === 'no') setGuests(1);
+                    }}
                     className={`rounded-sm border px-3 py-3 text-xs uppercase tracking-widest transition-colors md:text-sm ${
                       attending === opt
                         ? 'border-accent bg-accent text-white'
@@ -90,6 +101,37 @@ export default function Rsvp() {
                 ))}
               </div>
             </fieldset>
+
+            {attending === 'yes' && (
+              <fieldset className="grid gap-2">
+                <legend className="text-xs uppercase tracking-widest text-muted">
+                  Pilih Sesi
+                </legend>
+                <p className="text-xs normal-case tracking-normal text-muted/80">
+                  {wedding.rsvp.quotaNote}
+                </p>
+                <div className="mt-1 grid grid-cols-2 gap-3">
+                  {wedding.rsvp.sessions.map((s) => (
+                    <button
+                      key={s.id}
+                      type="button"
+                      aria-pressed={session === s.id}
+                      onClick={() => setSession(s.id)}
+                      className={`flex flex-col gap-1 rounded-sm border px-3 py-3 text-left transition-colors ${
+                        session === s.id
+                          ? 'border-accent bg-accent text-white'
+                          : 'border-ink/15 text-ink hover:border-accent'
+                      }`}
+                    >
+                      <span className="text-xs uppercase tracking-widest md:text-sm">{s.label}</span>
+                      <span className="text-[11px] normal-case tracking-normal opacity-80">
+                        {s.time}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+            )}
 
             <label className="grid gap-2 text-xs uppercase tracking-widest text-muted">
               Number of Guests
@@ -128,32 +170,6 @@ export default function Rsvp() {
             </button>
           </form>
         </Reveal>
-
-        {wishes.length > 0 && (
-          <div className="mt-12 grid gap-4">
-            <h3 className="text-center text-[11px] uppercase tracking-[0.3em] text-accent">
-              Recent Wishes
-            </h3>
-            <ul className="grid gap-3">
-              {wishes.map((w) => (
-                <li
-                  key={w.at}
-                  className="animate-fade-in-up rounded-sm border border-ink/10 bg-white/60 px-5 py-4 backdrop-blur"
-                >
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-medium uppercase tracking-widest text-ink">
-                      {w.name}
-                    </span>
-                    <span className="text-muted">
-                      {w.attending === 'yes' ? `Attending • ${w.guests}` : 'Cannot attend'}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{w.message}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
       </div>
     </section>
   );

@@ -38,6 +38,18 @@ export default function Gift() {
               <div className="mt-5">
                 <CopyButton value={acc.number} label="Copy Number" />
               </div>
+              {'qris' in acc && acc.qris && (
+                <div className="mt-6 flex flex-col items-center gap-2">
+                  <img
+                    src={acc.qris}
+                    alt={`QRIS ${acc.name}`}
+                    className="h-44 w-44 rounded-sm bg-white p-2 shadow-sm"
+                  />
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-muted">
+                    Scan QRIS
+                  </span>
+                </div>
+              )}
             </Reveal>
           ))}
 

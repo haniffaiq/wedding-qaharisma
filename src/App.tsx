@@ -10,10 +10,9 @@ import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
 import Quote from './sections/Quote';
 import BrideGroom from './sections/BrideGroom';
-import LoveStory from './sections/LoveStory';
 import Countdown from './sections/Countdown';
 import EventDetails from './sections/EventDetails';
-import LiveStream from './sections/LiveStream';
+// import LiveStream from './sections/LiveStream'; // hidden per draft
 import DressCode from './sections/DressCode';
 import Gallery from './sections/Gallery';
 import Rsvp from './sections/Rsvp';
@@ -40,10 +39,9 @@ export default function App() {
             <Hero />
             <Quote />
             <BrideGroom />
-            <LoveStory />
             <Countdown />
             <EventDetails />
-            <LiveStream />
+            {/* <LiveStream /> hidden per draft */}
             <DressCode />
             <Gallery />
             <Rsvp />

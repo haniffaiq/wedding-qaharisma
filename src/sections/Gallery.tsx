@@ -1,4 +1,3 @@
-import { Play } from 'lucide-react';
 import { useState } from 'react';
 import { wedding } from '../data/content';
 import SectionHeading from '../components/SectionHeading';
@@ -29,13 +28,6 @@ export default function Gallery() {
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-[1000ms] ease-out group-hover:scale-110"
                 />
-                {'video' in g && g.video && (
-                  <span className="absolute inset-0 flex items-center justify-center bg-black/30">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-ink shadow-lg md:h-12 md:w-12">
-                      <Play size={18} className="ml-0.5" />
-                    </span>
-                  </span>
-                )}
                 <span className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/20" />
               </button>
             </Reveal>

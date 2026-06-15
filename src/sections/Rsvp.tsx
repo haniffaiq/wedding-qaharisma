@@ -12,10 +12,16 @@ export default function Rsvp() {
   const guestSlug = guestFromPath();
   const [name, setName] = useState(guestSlug === 'Guest' ? '' : guestSlug);
   const [attending, setAttending] = useState<'yes' | 'no'>('yes');
+  const [locations, setLocations] = useState<string[]>([]);
   const [session, setSession] = useState<string>(wedding.rsvp.sessions[0].id);
   const [guests, setGuests] = useState(1);
   const [message, setMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
+
+  const toggleLocation = (id: string) =>
+    setLocations((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+
+  const goesJakarta = locations.includes('jakarta');
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -23,20 +29,30 @@ export default function Rsvp() {
       show('Mohon isi nama Anda');
       return;
     }
+    if (attending === 'yes' && locations.length === 0) {
+      show('Mohon pilih lokasi kehadiran');
+      return;
+    }
     setSubmitting(true);
     try {
       const picked = wedding.rsvp.sessions.find((s) => s.id === session);
+      const locLabels = wedding.rsvp.locations
+        .filter((l) => locations.includes(l.id))
+        .map((l) => l.label)
+        .join(', ');
       await sendRsvp({
         guest: guestSlug,
         name: name.trim(),
         attending,
-        session: attending === 'yes' && picked ? `${picked.label} (${picked.time})` : '',
+        locations: attending === 'yes' ? locLabels : '',
+        session: attending === 'yes' && goesJakarta && picked ? `${picked.label} (${picked.time})` : '',
         guests,
         message,
       });
       setName('');
       setMessage('');
       setGuests(1);
+      setLocations([]);
       setSession(wedding.rsvp.sessions[0].id);
       setAttending('yes');
       show('Terima kasih, RSVP terkirim');
@@ -103,6 +119,40 @@ export default function Rsvp() {
             </fieldset>
 
             {attending === 'yes' && (
+              <fieldset className="grid gap-2">
+                <legend className="text-xs uppercase tracking-widest text-muted">
+                  Lokasi Kehadiran
+                </legend>
+                <p className="text-xs normal-case tracking-normal text-muted/80">
+                  Boleh pilih dua-duanya atau salah satu.
+                </p>
+                <div className="mt-1 grid grid-cols-2 gap-3">
+                  {wedding.rsvp.locations.map((l) => {
+                    const on = locations.includes(l.id);
+                    return (
+                      <button
+                        key={l.id}
+                        type="button"
+                        aria-pressed={on}
+                        onClick={() => toggleLocation(l.id)}
+                        className={`flex flex-col gap-1 rounded-sm border px-3 py-3 text-left transition-colors ${
+                          on
+                            ? 'border-accent bg-accent text-white'
+                            : 'border-ink/15 text-ink hover:border-accent'
+                        }`}
+                      >
+                        <span className="text-xs uppercase tracking-widest md:text-sm">{l.label}</span>
+                        <span className="text-[11px] normal-case tracking-normal opacity-80">
+                          {l.sub}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            )}
+
+            {attending === 'yes' && goesJakarta && (
               <fieldset className="grid gap-2">
                 <legend className="text-xs uppercase tracking-widest text-muted">
                   Pilih Sesi

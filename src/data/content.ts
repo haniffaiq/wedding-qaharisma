@@ -24,32 +24,6 @@ export const wedding = {
     text: '"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikannya di antaramu rasa kasih dan sayang."',
     ref: 'QS. Ar-Rum: 21',
   },
-  loveStory: [
-    {
-      title: 'First Meet',
-      date: 'August 2018',
-      img: '/assets/real/couple-1.jpg',
-      text: 'A quiet Sunday afternoon, a small bookstore, and a chance encounter over the same novel. Conversations stretched into evenings, and what felt accidental began to feel like fate.',
-    },
-    {
-      title: 'Becoming Closer',
-      date: 'February 2020',
-      img: '/assets/real/couple-3.jpg',
-      text: 'Through long letters, late-night calls, and weekends spent exploring the city, two lives slowly began to weave into one rhythm.',
-    },
-    {
-      title: 'Through The Distance',
-      date: 'June 2022',
-      img: '/assets/real/couple-5.jpg',
-      text: 'Different cities, different time zones, but the same hope. Distance only made the love steadier and the patience kinder.',
-    },
-    {
-      title: 'The Proposal',
-      date: 'December 2025',
-      img: '/assets/real/couple-4.jpg',
-      text: 'Under the soft glow of an autumn evening, a question was asked, an answer was given, and a forever was set in motion.',
-    },
-  ],
   events: {
     primary: {
       label: 'Akad & Resepsi',
@@ -99,21 +73,24 @@ export const wedding = {
     },
   },
   gallery: [
-    { src: '/assets/real/couple-6.jpg' },
-    { src: '/assets/real/couple-7.jpg' },
-    { src: '/assets/real/couple-8.jpg' },
-    { src: '/assets/real/couple-4.jpg' },
-    { src: '/assets/real/couple-1.jpg' },
-    { src: '/assets/real/couple-3.jpg' },
-    { src: '/assets/real/couple-5.jpg' },
-    { src: '/assets/real/couple-2.jpg' },
+    { src: '/assets/real/g01.jpg' },
+    { src: '/assets/real/g02.jpg' },
+    { src: '/assets/real/g03.jpg' },
+    { src: '/assets/real/g04.jpg' },
+    { src: '/assets/real/g05.jpg' },
+    { src: '/assets/real/g06.jpg' },
+    { src: '/assets/real/g07.jpg' },
+    { src: '/assets/real/g08.jpg' },
+    { src: '/assets/real/g09.jpg' },
+    { src: '/assets/real/g10.jpg' },
+    { src: '/assets/real/g11.jpg' },
   ],
   hero: {
     slides: [
-      '/assets/real/couple-6.jpg',
-      '/assets/real/couple-7.jpg',
-      '/assets/real/couple-8.jpg',
-      '/assets/real/couple-4.jpg',
+      '/assets/real/g02.jpg',
+      '/assets/real/g01.jpg',
+      '/assets/real/g07.jpg',
+      '/assets/real/g05.jpg',
     ],
     video: '/assets/real/hero.mp4',
     overlayVideo: '',
@@ -126,6 +103,10 @@ export const wedding = {
   rsvp: {
     intro: "We'd love to celebrate with you. Please share your kind wishes and let us know whether you can attend.",
     maxGuests: 4,
+    locations: [
+      { id: 'sukabumi', label: 'Sukabumi', sub: 'Akad & Resepsi · Sab 27 Jun' },
+      { id: 'jakarta', label: 'Jakarta', sub: 'Ngunduh Mantu · Min 28 Jun' },
+    ],
     sessions: [
       { id: 'siang', label: 'Siang - Sore', time: '11:00 - 15:00 WIB' },
       { id: 'malam', label: 'Sore - Malam', time: '15:00 - 19:00 WIB' },

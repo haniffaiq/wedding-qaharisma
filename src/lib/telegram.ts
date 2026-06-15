@@ -4,7 +4,8 @@ export type RsvpPayload = {
   guest: string; // from URL slug (guestFromPath)
   name: string;
   attending: 'yes' | 'no';
-  session: string; // chosen session label + time, e.g. "Siang - Sore (11:00 - 15:00 WIB)"
+  locations: string; // chosen event locations, e.g. "Sukabumi, Jakarta"
+  session: string; // chosen Jakarta session label + time; '' if Jakarta not chosen
   guests: number;
   message: string;
 };
@@ -32,7 +33,8 @@ export function buildRsvpMessage(p: RsvpPayload): string {
     `Kehadiran: ${p.attending === 'yes' ? '✅ Hadir' : '❌ Tidak hadir'}`,
   ];
   if (p.attending === 'yes') {
-    if (p.session) lines.push(`Sesi: ${escapeHtml(p.session)}`);
+    if (p.locations) lines.push(`Lokasi: ${escapeHtml(p.locations)}`);
+    if (p.session) lines.push(`Sesi (Jakarta): ${escapeHtml(p.session)}`);
     lines.push(`Jumlah: ${p.guests} orang`);
   }
   if (p.message.trim()) {

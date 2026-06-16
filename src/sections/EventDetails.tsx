@@ -11,7 +11,7 @@ type Ev = {
   venue: string;
   address: string;
   mapsUrl: string;
-  qr?: string;
+  embed?: string;
   schedule: readonly { time: string; name: string }[];
 };
 
@@ -47,12 +47,18 @@ function EventCard({ ev, delay = 0 }: { ev: Ev; delay?: number }) {
         <span className="text-left">{ev.address}</span>
       </div>
 
-      {ev.qr && (
-        <img
-          src={ev.qr}
-          alt={`QR code — ${ev.venue}`}
-          className="mt-7 h-32 w-32 rounded-sm border border-ink/10 bg-white p-1.5"
-        />
+      {ev.embed && (
+        <div className="mt-7 w-full overflow-hidden rounded-sm border border-ink/10 md:mt-8">
+          <iframe
+            src={ev.embed}
+            title={`Peta — ${ev.venue}`}
+            className="h-56 w-full md:h-64"
+            style={{ border: 0 }}
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
       )}
 
       <a

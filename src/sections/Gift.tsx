@@ -1,4 +1,4 @@
-import { Building2, Gift as GiftIcon, MapPin, Phone } from 'lucide-react';
+import { Building2, MapPin, Phone } from 'lucide-react';
 import { wedding } from '../data/content';
 import SectionHeading from '../components/SectionHeading';
 import CopyButton from '../components/CopyButton';
@@ -72,28 +72,6 @@ export default function Gift() {
             <div className="mt-5">
               <CopyButton value={wedding.gifts.address.text} label="Copy Address" />
             </div>
-          </Reveal>
-
-          <Reveal
-            delay={360}
-            className="flex flex-col rounded-sm border border-ink/10 bg-white/60 p-7 backdrop-blur md:p-8"
-          >
-            <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.4em] text-accent">
-              <GiftIcon size={14} />
-              Gift Registry
-            </span>
-            <h3 className="mt-4 font-display text-2xl">Curated Wishlist</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
-              Browse a small, thoughtful list of items that would help us start our new home.
-            </p>
-            <a
-              href={wedding.gifts.registry.url}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-auto inline-flex w-fit items-center gap-2 rounded-full border border-accent px-5 py-2.5 text-xs uppercase tracking-widest text-accent transition-colors hover:bg-accent hover:text-white"
-            >
-              {wedding.gifts.registry.label}
-            </a>
           </Reveal>
         </div>
       </div>

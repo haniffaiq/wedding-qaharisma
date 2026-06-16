@@ -13,7 +13,6 @@ import BrideGroom from './sections/BrideGroom';
 import Countdown from './sections/Countdown';
 import EventDetails from './sections/EventDetails';
 // import LiveStream from './sections/LiveStream'; // hidden per draft
-import DressCode from './sections/DressCode';
 import Gallery from './sections/Gallery';
 import Rsvp from './sections/Rsvp';
 import Gift from './sections/Gift';
@@ -42,7 +41,6 @@ export default function App() {
             <Countdown />
             <EventDetails />
             {/* <LiveStream /> hidden per draft */}
-            <DressCode />
             <Gallery />
             <Rsvp />
             <Gift />

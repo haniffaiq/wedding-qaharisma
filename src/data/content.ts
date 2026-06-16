@@ -1,6 +1,10 @@
 export const wedding = {
   date: '2026-06-27T09:00:00+07:00',
   dateLabel: 'SATURDAY, 27 JUNE 2026',
+  dateLabels: [
+    { place: 'Sukabumi', date: 'SATURDAY, 27 JUNE 2026' },
+    { place: 'Jakarta', date: 'SUNDAY, 28 JUNE 2026' },
+  ],
   greeting: 'Dear, Guest',
   title: 'THE WEDDING OF',
   coupleShort: 'QAHHAR & RISMA',
@@ -34,7 +38,8 @@ export const wedding = {
       address:
         'Kp. Gn. Guruh RT.47/RW.09, Kec. Gunungguruh, Kabupaten Sukabumi, Jawa Barat 43156',
       mapsUrl: 'https://maps.app.goo.gl/K6bWknGkfYNbsduL8',
-      qr: '/assets/qr/venue-sukabumi.png',
+      embed:
+        'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.4600594278395!2d106.90336257317954!3d-6.954932168087586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68392cfafe78f3%3A0xbcaeeaf79f6677fc!2sBale%20Sawala%20Desa%20Gunungguruh!5e0!3m2!1sen!2sid!4v1781345579193!5m2!1sen!2sid',
       schedule: [
         { time: '09:00 - 10:00 WIB', name: 'Akad Nikah' },
         { time: '10:00 - 15:00 WIB', name: 'Resepsi Pernikahan' },
@@ -49,7 +54,8 @@ export const wedding = {
       address:
         'Jl. Raden Saleh Raya No.9c, RT.2/RW.2, Kenari, Kec. Senen, Jakarta Pusat 10330',
       mapsUrl: 'https://maps.app.goo.gl/fybvYu3UT3pmSLkx6',
-      qr: '/assets/qr/venue-jakarta.png',
+      embed:
+        'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.5579605234134!2d106.84186583513392!3d-6.189855383824246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f50002e3c27d%3A0xba85d8ada8b92a8e!2sResto%20Trisnoku!5e0!3m2!1sen!2sid!4v1781345491666!5m2!1sen!2sid',
       schedule: [
         { time: '11:00 - 15:00 WIB', name: 'Undangan Siang - Sore' },
         { time: '15:00 - 19:00 WIB', name: 'Undangan Sore - Malam' },
@@ -64,14 +70,6 @@ export const wedding = {
     handle: 'qahharisma',
     url: 'https://instagram.com/qahharisma',
   },
-  dressCode: {
-    note: 'In keeping with the spirit of our day, we kindly invite you to dress in tones that follow our chosen palette.',
-    frame: {
-      label: 'Wedding Frame',
-      desc: 'Capture a moment in our day with our Instagram filter and tag us @qahharisma.',
-      url: 'https://www.instagram.com/ar/0000000000/',
-    },
-  },
   gallery: [
     { src: '/assets/real/g01.jpg' },
     { src: '/assets/real/g02.jpg' },
@@ -83,7 +81,6 @@ export const wedding = {
     { src: '/assets/real/g08.jpg' },
     { src: '/assets/real/g09.jpg' },
     { src: '/assets/real/g10.jpg' },
-    { src: '/assets/real/g11.jpg' },
   ],
   hero: {
     slides: [
@@ -111,7 +108,7 @@ export const wedding = {
       { id: 'siang', label: 'Siang - Sore', time: '11:00 - 15:00 WIB' },
       { id: 'malam', label: 'Sore - Malam', time: '15:00 - 19:00 WIB' },
     ],
-    quotaNote: 'Kuota acara Jakarta total 200 tamu (2 sesi). Mohon pilih satu sesi kehadiran.',
+    quotaNote: 'Silahkan pilih rencana kehadiran.',
   },
   gifts: {
     intro: 'Your presence is the greatest gift. Should you wish to send a token of love, we have prepared the following options.',
@@ -135,10 +132,6 @@ export const wedding = {
       name: 'Risma Lutfiani',
       text: 'Jl. Kramat V No.5D, Kenari, Kec. Senen, Jakarta Pusat',
       phone: '+62 821 2010 0030',
-    },
-    registry: {
-      label: 'Open our gift registry',
-      url: 'https://example.com/registry',
     },
   },
   closing: {

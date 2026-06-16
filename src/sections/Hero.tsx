@@ -45,9 +45,15 @@ export default function Hero() {
           </span>
           <span className="h-px w-16 bg-white/40" />
         </div>
-        <p className="mt-10 text-[10px] uppercase tracking-[0.5em] text-white/85 md:text-xs">
-          {wedding.dateLabel}
-        </p>
+        <div className="mt-10 flex flex-col items-center gap-1.5 text-[10px] uppercase tracking-[0.4em] text-white/85 md:text-xs">
+          {wedding.dateLabels.map((d) => (
+            <p key={d.place}>
+              <span className="text-accent">{d.place}</span>
+              <span className="mx-2 text-white/40">·</span>
+              {d.date}
+            </p>
+          ))}
+        </div>
 
         <div className="mt-10 inline-flex flex-col items-center gap-2 rounded-2xl border border-white/25 bg-black/30 px-7 py-5 backdrop-blur-md md:px-10 md:py-6">
           <span className="text-[10px] uppercase tracking-[0.4em] text-white/70">

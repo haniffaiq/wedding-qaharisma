@@ -84,8 +84,8 @@ export const wedding = {
   ],
   hero: {
     slides: [
-      '/assets/real/g02.jpg',
       '/assets/real/g01.jpg',
+      '/assets/real/g02.jpg',
       '/assets/real/g07.jpg',
       '/assets/real/g05.jpg',
     ],
